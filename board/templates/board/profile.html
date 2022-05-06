@@ -1,0 +1,35 @@
+{% extends "board/base.html" %}
+{% block title %}Profile Page{% endblock title %}
+{% block content %}
+{% if not profile %}
+<h1>Finish Your Profile</h1>
+{% else %}
+
+    <div class="flex flex-col items-center shadow-md rounded-md row my-3 p-4">
+        <img class="rounded-full w-20" src="{{ profile.avatar.url }}" />
+        <h1 class="text-xl font-bold">{{ profile.first_name }} {{ profile.last_name}}</h1>
+        <p>
+            {{ profile.bio }}
+        </p>
+        <h2 class="font-bold">Skills</h2>
+        <span id="skills">{{ profile.skills }}</span>
+    </div>
+    <div>
+        <a href="/settings">
+            <button class="bg-green-700 w-50 px-4 py-1 rounded-sm font-bold text-white">Edit Profile</button>
+        </a>
+    </div>
+    <script>
+        let skills = document.getElementById("skills");
+        
+        let skillsArr =  skills.innerHTML.split(',')
+        console.log(skillsArr)
+
+        skillsArr = skillsArr.map(skill => (
+            `<span class="bg-slate-300 px-2 py-1 shadow rounded-full cursor-default">${skill}</span>`
+        ))
+
+        skills.innerHTML = skillsArr
+    </script>
+{% endif %}
+{% endblock content %}

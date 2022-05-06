@@ -1,0 +1,16 @@
+{%extends "board/base.html" %} {% block title %}Create an Account{% endblock %} {% load crispy_forms_tags %} {% block content %}
+<style>
+    input {
+        border: 1px solid gray;
+    }
+</style>
+<form method="POST" class="w-11/12">
+    {% csrf_token %} {{ form|crispy }}
+
+    
+    <p>Already have an accoount? Log in <a href="/login">here</a></p>
+
+    <button type="submit" class="bg-slate-800 px-4 w-full font-bold my-3 py-1 rounded-sm text-white">Register</button>
+
+</form>
+{% endblock %}

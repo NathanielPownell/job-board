@@ -1,0 +1,36 @@
+{%extends "board/home.html" %} {% block title %} Home {% endblock %} {%block body%}
+<div class="p-4">
+    <!-- <label for="search">Search Jobs</label> -->
+    <!-- <input class="w-96 text-2xl border-2 border-slate-300" type="text" id="search" name="search" placeholder="🔎 Search Jobs..." /> -->
+    <form method='post'>
+        {% csrf_token %}
+        {{ search_form }}
+        <button type="submit" class="text-2xl px-3 font-bold text-white h-full bg-gradient-to-r from-green-500 to-lime-500">Go</button>
+    </form>
+</div>
+{% if query %}
+<h1 class="text-2xl font-bold">{{query}}</h1>
+{% else %}
+<h1 class="text-2xl font-bold">Recent Job Postings</h1>
+{% endif %}
+<div class="grid grid-flow-col auto-cols-min max-w-full overflow-x-scroll snap-x snap-mandatory gap-9">
+    {% for posting in object_list %}
+    <div class="py-5 px-3 col-auto w-96 shadow-lg snap-always snap-start flex flex-col gap-4 rounded-md">
+
+        <a href="/{{ posting.id }}" class="text-2xl font-bold  cursor-pointer">
+            {{ posting.title }}
+        </a> {{ posting.employer.name }} {{ posting.pub_date|date }}
+        <div class="max-h-24 overflow-y-scroll text-sm">
+            {{ posting.desc|safe }}
+        </div>
+        
+        <a href="/{{ posting.id }}" class=" py-3 ">
+            <button class="bg-slate-800 px-4 py-1 rounded-full text-white">Learn More</button>
+        </a>
+    </div>
+    {% empty %}
+    <li>No postings yet.</li>
+    {% endfor %}
+</div>
+
+{% endblock %}

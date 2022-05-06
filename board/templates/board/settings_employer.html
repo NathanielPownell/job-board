@@ -1,0 +1,26 @@
+{%extends "board/base.html" %} {% block title %}Create an Account{% endblock %} {% load crispy_forms_tags %} {% block content %}
+<style>
+    input {
+        border: 1px solid gray;
+    }
+</style>
+<h1 class="text-xl font-bold">Employer Profile</h1>
+<form method="post" enctype="multipart/form-data" class="flex flex-col">
+    {% csrf_token %} 
+
+    {{employer_form}}
+    <!-- <label>Company Name</label>
+    {{ employer_form.name }}
+    <label>Bio:</label>
+    {{ employer_form.bio }}
+    <label>Logo</label>
+    {{ employer_form.avatar }}
+    <label>Banner Image (Optional)</label>
+    {{ employer_form.banner }} -->
+
+    <button type="submit" class="bg-slate-800 px-4 my-3 py-1 rounded-sm text-white">Submit</button>
+    <button type="reset" class="bg-slate-700 w-50 px-4 py-1 rounded-sm font-bold text-white">Reset</button>
+
+    {{ employer_form.errors }}
+</form>
+{% endblock %}

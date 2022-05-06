@@ -1,0 +1,16 @@
+{% extends "board/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}- Application{% endblock title %}
+{% block content %}
+    <div class="shadow-lg p-4 w-96 flex flex-col items-center">
+        <h1 class="text-xl font-bold">Thanks For Applying!</h1>
+        <h1 class="text-xl">{{posting.title}}</h1>
+        <p>Your application has been sent to the employer.</p>
+        <p>You have received a confirmation email.</p>
+        <img src="https://ouch-cdn2.icons8.com/X_JSZ4h41JtRAfE-R8zR6KEWIIE3rx1tKqXTAmXHCaU/rs:fit:762:912/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvNDIv/MWJhZDkwZGUtOTdh/MS00Y2RkLWFhNmUt/OGJhMTAyYWQ2Y2I2/LnBuZw.png" />
+        <a href="/" class="w-full py-3 ">
+            <button class="bg-white border-2 border-solid border-black w-full px-4 py-1 rounded-sm font-bold text-black">Home</button>
+        </a>
+    </div>
+
+{% endblock content %}

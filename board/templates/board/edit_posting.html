@@ -1,0 +1,22 @@
+{% extends "board/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}- Edit Job Posting{% endblock title %}
+{% block content %}
+<div class="shadow-lg p-4 lg:w-9/12 sm:w-full flex flex-col items-center">
+    <img class="w-48" src="https://ouch-cdn2.icons8.com/rIVfiA_G7JvGdNzUwLhGx9KIpyftYoCTk0_qTFGq_Iw/rs:fit:912:912/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvMzAw/LzNmZDM3Yzk4LTk4/OTYtNGNiZS04MDdj/LTU3ZTQxM2UzYTBi/ZC5wbmc.png" />
+        <h1 class="text-xl font-bold">Edit A Job Posting</h1>
+        
+        <form method='post'>
+            <div class="w-full flex flex-col py-3 gap-3 items-start">
+                {% csrf_token %} {{ posting_form.as_p }} {{ posting_form.media }}
+                </div>
+                <div class="w-full flex flex-col items-center gap-2">
+                    <button class="px-3 py-2 bg-green-700 font-bold text-white lg:w-96 w-full" type="submit">Update &check;</button>
+                    <a href="/employer/" class="py-3 lg:w-96 w-full">
+                        <button class="bg-white border-2 border-solid border-black w-full px-4 py-1 rounded-sm font-bold text-black">Cancel</button>
+                    </a>
+                </div>
+            </form>
+    </div>
+
+{% endblock content %}

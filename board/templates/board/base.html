@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'board/base.css' %}" /> -->
+    <script
+			  src="https://code.jquery.com/jquery-3.6.0.min.js"
+			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+			  crossorigin="anonymous"></script>
+
+    <style>
+        .nav {
+    width: 100vw;
+    overflow-x: hidden;
+    padding-inline: 3rem;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mobile{
+    visibility: hidden;
+    display: none;
+}
+
+.desktop{
+    
+}
+
+.hamburger{
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 25px;
+    width: 30px;
+    justify-content: space-between;
+}
+
+.line {
+    height: 5px;
+    width: 30px;
+    background-color: black;
+    border-radius: 2px;
+    transition: all .3s ease-in-out;
+}
+
+.hamburger.active .line-one {
+    transform: translateY(10px) rotate(45deg) ;
+}
+.hamburger.active .line-two {
+    opacity: 0;
+    transform: rotate(45deg);
+}
+.hamburger.active .line-three {
+    transform: translateY(-10px) rotate(-45deg) ;
+}
+
+.mobileitems{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    
+    top: 80px;
+    left: 0;
+    transform: translateY(-300px);
+    background-color: white;
+    width: 100vw;
+    transition: all .2s ease-in-out;
+}
+
+.toggledmobilenav {
+    transform: translateY(0);
+}
+
+.django-ckeditor-widget{
+    /* max-width: 200px; */
+}
+
+@media screen and (max-width: 750px) {
+    .desktop{
+        visibility: hidden;
+        display: none;
+    }
+    .mobile{
+        visibility: visible;
+        display: flex;
+    }
+}
+
+    </style>
+    <title>TechJobs {% block title %} {% endblock %}</title>
+</head>
+
+<style>
+    * {
+        font-family: 'Montserrat', sans-serif;
+    }
+</style>
+
+<body>
+    <div id="mobileitems" class="mobileitems">
+        <ul class="flex gap-4 h-min flex-col align-center">
+            <li class="flex h-min align-center"><a href="/">Home</a></li>
+            {% if request.user.employer %}
+            <li class="flex h-min align-center"><a href="/employer">Employer Profile</a></li>
+            <li class="flex h-min align-center"><a href="/profile">User Profile</a></li>
+            {% else %}
+            {% endif %}
+        </ul>
+        {% if request.user.is_authenticated %}
+
+        <div class="flex flex-col">
+            <a href="/posting/create" class=" py-3 ">
+                <button class="bg-green-800 px-4 py-1 rounded-full text-white">Post A Job</button>
+            </a>
+            <a href="/logout" class=" py-3 ">
+                <button class="bg-slate-800 px-4 py-1 rounded-full text-white">Logout</button>
+            </a>
+        </div>
+        {% else %}
+        <div class="flex flex-col">
+            <a href="/login" class=" py-3 ">
+                <button class="bg-slate-800 px-4 py-1 rounded-full text-white">Log In</button>
+            </a>
+            <a href="/register/employer/" class=" py-3 ">
+                <button class="bg-blue-800 px-4 py-1 rounded-sm font-bold text-white">I'm An Employer</button>
+            </a>
+            <a href="/register" class=" py-3 ">
+                <button class="bg-green-800 px-4 py-1 rounded-sm font-bold text-white">I'm A Jobseeker</button>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    <nav>
+        <div class="nav mobile">
+            <a href="/">
+                <img class="w-40" src="https://lh3.googleusercontent.com/rZ9gqI5M2Rwk1CuEZe37UvD-igimK_bjHIFBUT5d0mcaJkZhzaxozsUPdM_7boJ56PQqbfAYZIPQVaGaxenyOljZU92XmtGsoEfGxzzmnhqgCJcc77Uot0MP4VciOP32A5ANMUGjzg=w2400" />
+            </a>
+            <div onclick="" class="hamburger" id="hamburger">
+                <span class="line line-one"></span>
+                <span class="line line-two"></span>
+                <span class="line line-three"></span>
+            </div>
+
+            
+
+        </div>
+        <div class="nav desktop">
+            <a href="/">
+                <img class="w-40" src="https://lh3.googleusercontent.com/rZ9gqI5M2Rwk1CuEZe37UvD-igimK_bjHIFBUT5d0mcaJkZhzaxozsUPdM_7boJ56PQqbfAYZIPQVaGaxenyOljZU92XmtGsoEfGxzzmnhqgCJcc77Uot0MP4VciOP32A5ANMUGjzg=w2400" />
+            </a>
+            <!-- <h1 class="text-3xl font-bold">The Job Posting Website</h1> -->
+            <ul class="flex gap-4 h-min flex-inline align-center">
+                <li class="flex h-min align-center"><a href="/">Home</a></li>
+                {% if request.user.employer %}
+                <li class="flex h-min align-center"><a href="/employer">Employer Profile</a></li>
+                <li class="flex h-min align-center"><a href="/profile">User Profile</a></li>
+                {% else %}
+                {% endif %}
+            </ul>
+            {% if request.user.is_authenticated %}
+
+            <div>
+                <a href="/posting/create" class=" py-3 ">
+                    <button class="bg-green-800 px-4 py-1 rounded-full text-white">Post A Job</button>
+                </a>
+                <a href="/logout" class=" py-3 ">
+                    <button class="bg-slate-800 px-4 py-1 rounded-full text-white">Logout</button>
+                </a>
+            </div>
+            {% else %}
+            <div>
+                <a href="/login" class=" py-3 ">
+                    <button class="bg-slate-800 px-4 py-1 rounded-full text-white">Log In</button>
+                </a>
+                <a href="/register/employer/" class=" py-3 ">
+                    <button class="bg-blue-800 px-4 py-1 rounded-sm font-bold text-white">I'm An Employer</button>
+                </a>
+                <a href="/register" class=" py-3 ">
+                    <button class="bg-green-800 px-4 py-1 rounded-sm font-bold text-white">I'm A Jobseeker</button>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+        
+    </nav>
+    <div class="flex flex-col justify-center items-center">
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <script>
+        $('.hamburger').click(function (event) {
+
+            // Don't follow the link
+            event.preventDefault();
+            $('div.hamburger').toggleClass(" active ");
+            $('#mobileitems').toggleClass(" toggledmobilenav ");
+            // Log the clicked element in the console
+            console.log(event.target);
+
+        });
+
+    </script>
+
+</body>
+
+</html>

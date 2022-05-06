@@ -1,0 +1,24 @@
+{%extends "board/base.html" %} {% block title %}Create an Account{% endblock %} {% load crispy_forms_tags %} {% block content %}
+<style>
+    input {
+        border: 1px solid gray;
+    }
+</style>
+<h1 class="text-xl font-bold">Register As Employer</h1>
+<form method="POST" class="flex flex-col">
+    {% csrf_token %} 
+    <label>Username</label>
+    {{ register_form.username }}
+    
+    <label>Email</label>
+    {{ register_form.email }}
+    <label>Password</label>
+    {{ register_form.password1 }}
+    <label>Confirm Password</label>
+    {{ register_form.password2 }}
+
+
+    <button type="submit" class="bg-slate-800 px-4 my-3 py-1 rounded-full text-white">Register</button>
+
+</form>
+{% endblock %}

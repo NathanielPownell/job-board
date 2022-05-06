@@ -1,0 +1,64 @@
+{% extends "board/base.html" %}
+{% block title %}- {{posting.title}} {% endblock title %}
+{% block content %}
+<style>
+    ul{
+        list-style-type: square;
+    }
+</style>
+    <div class="flex max-w-sm flex-col items-start shadow-md rounded-md row my-3 p-4">
+        <img class="w-20" src="{{ posting.employer.avatar.url }}" />
+        <p class="font-bold">
+            {{ posting.employer.name }}
+        </p>
+        <p>
+            <i>
+                {{ posting.employer.bio }}
+            </i>
+        </p>
+    </div>
+    <div class="flex max-w-xl flex-col items-center shadow-md rounded-md row my-3 p-4">
+        <h1 class="text-xl font-bold">{{ posting.title }}</h1>
+        <div>
+            {{ posting.desc|safe }}
+        </div>
+        <div class="w-full flex flex-col p-3 gap-2">
+
+            <h2 class="font-bold">Tags</h2>
+            <span id="tags">{{ posting.tags }}</span>
+        </div>
+        {% if posting.employer.id == request.user.employer.id %}
+        <div>
+
+            <a href="/posting/edit/{{ posting.id }}/" class=" py-3 ">
+                <button class="bg-slate-800 px-4 py-1 rounded-full text-white">Edit</button>
+            </a>
+            <a href="/posting/delete/{{ posting.id }}/" class=" py-3 ">
+                <button class="bg-red-800 px-4 py-1 rounded-full text-white">Delete</button>
+            </a>
+        </div>
+        {% else %}
+        <div class="w-full p-3">
+            <a href='/apply/{{posting.id}}' class=" py-3 ">
+                <button class="bg-green-700 w-full px-4 py-1 rounded-sm font-bold text-white">Apply</button>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+
+
+    <script>
+        let tags = document.getElementById("tags");
+        
+        let tagsArr =  tags.innerHTML.split(',')
+        console.log(tagsArr)
+
+        tagsArr = tagsArr.map(tag => (
+            `<a href="/postings/${tag}/" class="bg-slate-300 px-2 py-1 shadow rounded-full cursor-pointer">${tag}</a>`
+        ))
+
+        tags.innerHTML = tagsArr
+    </script>
+
+{% endblock content %}

@@ -1,0 +1,49 @@
+{% extends "board/base.html" %}
+{% block title %}Profile Page{% endblock title %}
+{% block content %}
+{% if not employer %}
+<h1>Finish Your Profile</h1>
+{% else %}
+
+    <div class="flex flex-col items-center shadow-md rounded-md row my-3 p-4">
+        <img class="rounded-full w-20" src="{{ employer.avatar.url }}" />
+        <h1 class="text-xl font-bold">{{ employer.first_name }}</h1>
+        <p>
+            {{ employer.bio }}
+        </p>
+    </div>
+    <div>
+        <a href="/settings/employer">
+            <button class="bg-green-700 w-50 px-4 py-1 rounded-sm font-bold text-white">Edit Employer Profile</button>
+        </a>
+    </div>
+    <div>
+        {% if postings|length > 0 %}
+            <h3 class="text-xl font-bold">My Jobs</h3>
+            {% for posting in postings %}
+            <div class="py-5 px-3 col-auto w-96 shadow-lg snap-always snap-start flex flex-col gap-4 rounded-md">
+
+                <a href="{{ posting.id }}" class="text-2xl font-bold  cursor-pointer">
+                    {{ posting.title }}
+                </a> {{ posting.employer.name }} {{ posting.pub_date|date }}
+                <div class="max-h-24 h-24 flex flex-col overflow-y-scroll text-sm">
+                    {{ posting.desc|safe }}
+                </div>
+                <div>
+
+                    <a href="/posting/edit/{{ posting.id }}/" class=" py-3 ">
+                        <button class="bg-slate-800 px-4 py-1 rounded-full text-white">Edit</button>
+                    </a>
+                    <a href="/posting/delete/{{ posting.id }}/" class=" py-3 ">
+                        <button class="bg-red-800 px-4 py-1 rounded-full text-white">Delete</button>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <h3 class="text-xl">No Postings yet</h3>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endif %}
+{% endblock content %}
